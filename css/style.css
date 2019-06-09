@@ -1,0 +1,155 @@
+*{
+  padding:0;
+  margin:0;
+}
+body{
+  background: #fff;
+  font-family: 'Raleway',sans-serif;
+  font-weight: 400;
+}
+.container{
+  width: 650px;
+  margin: 0 auto;
+}
+.header{
+  background-color: navy;
+  color:#fff;
+  height:30vh;
+}
+.headerContent, .formContent{
+  width:700px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 25px;
+}
+
+.headerContent h2{
+  line-height: 2.85rem;
+}
+
+.content{
+  background-color: #fff;
+  width:100%;
+  margin-bottom:15px;
+  box-sizing:border-box;
+}
+.padding{
+  padding:15px;
+}
+.row, .form{
+  display:flex;
+  flex-flow: row;
+  justify-content: space-around;
+}
+.mode{
+  text-align: center;
+  background-color: #fafafa;
+}
+.selected{
+  background-color:#dedede;
+  font-weight: bold;
+}
+
+
+
+/**************************************/
+/********** FORM ***********/
+
+.form{
+  background: #f0f0f0;
+}
+.formContent{
+  display:flex;
+  flex-flow: row;
+  justify-content: space-around;
+}
+select.addType{
+  display: block;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #444;
+  line-height: 1.5;
+  padding: 1em 1.4em 1em 1em;
+  width:10%;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: .5em;
+  background-color: #fff;
+}
+
+.dateInput p{
+  display: inline-block;
+  font-size: 0.85rem;
+  padding-right: 5px;
+}
+
+input[type='date']{
+  font-family: 'Raleway',sans-serif;
+  padding: 0.75rem 0.55rem 0.75rem 1rem;
+  font-size: 14px;
+  border: 1px solid #aaa;
+  border-radius: .5em;
+  width: 55%;
+}
+
+button{
+  border: none;
+  background-color: transparent;
+  font-size: 1.25rem;
+  padding: 3px;
+  color: #778899;
+}
+button:focus{
+  border:none;
+}
+
+
+/**************************************/
+/********** DATA TBS ***********/
+
+.dataContent{
+  width:800px;
+  margin: 0 auto;
+  margin-top:55px;
+  display:flex;
+  flex-flow: row;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.dataContent h2{
+  text-align: center;
+  margin-bottom: 25px;
+}
+.in,.out{
+  width:40%;
+}
+.item{
+  border-bottom: 0.5px solid #778899;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.item__delete{
+  display:none;
+}
+.item:hover .item__delete{
+  animation-name: slidein;
+  animation-duration: 3s;
+}
+
+@keyframes slidein {
+  from {
+    display:block;
+    opacity: 0;
+    width: 0;
+  }
+
+  to {
+    display:block;
+    opacity: 1;
+    width: 100%;
+  }
+}
