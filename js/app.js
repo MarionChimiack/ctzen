@@ -40,7 +40,13 @@ var dataController = (function(){
     };
 
     return {
-      addItem: function(type, start, end, days){
+
+      addItem: function(entry){
+          data.all[entry.type].push(entry);
+          return entry;
+      },
+
+      createItem: function(type, start, end){
           var newItem, ID;
 
           if(data.all[type].length > 0){
@@ -51,9 +57,9 @@ var dataController = (function(){
 
 
           if(type === 'in'){
-             newItem = new TimeIn(ID, type, start, end, days);
+             newItem = new TimeIn(ID, type, start, end);
           } else if (type === 'out'){
-            newItem = new TimeOut(ID, type, start, end, days);
+            newItem = new TimeOut(ID, type, start, end);
           }
 
           data.all[type].push(newItem);
@@ -189,6 +195,16 @@ var appController = (function(dataCtrl,uICtrl){
 
   };
 
+  var initData = async function(){
+    try{
+      const response = await fetch('https://5cfdae53ca949b00148d3894.mockapi.io/api/v1/data/');
+      const data = response.json();
+      return data;
+    }catch(e){
+      console.log(e);
+    }
+  }
+
   var updateCalcul = function(){
     //Calculate days
     dataCtrl.calculateDays();
@@ -207,7 +223,7 @@ var appController = (function(dataCtrl,uICtrl){
 
     if(input.startDate !== '' && input.endDate !== ''){
       //Add the data to the data Controller
-      newEntry = dataCtrl.addItem(input.type,input.startDate,input.endDate);
+      newEntry = dataCtrl.createItem(input.type,input.startDate,input.endDate);
 
       //Add to the UI and clear fileds
       uICtrl.addItemToDOM(newEntry, input.type);
@@ -246,6 +262,21 @@ var appController = (function(dataCtrl,uICtrl){
       initEventListeners();
 
       //display data
+      initData()
+      .then(function(data){
+        if(data !== ""){
+
+          dataCtrl.addItem(data);
+          uICtrl.addItemToDOM(data, data.type);
+
+          updateCalcul();
+        }
+        //IF data is not empty
+
+      })
+      .catch(function(e){
+        console.log(e);
+      });
       //uIController.displayData();
     }
   };
