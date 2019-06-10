@@ -1,8 +1,8 @@
-var dataController = (function(){
+const dataController = (() => {
 
     const threshold = 1095;
 
-    var TimeIn = function(id, type, startDate, endDate){
+    const TimeIn = function(id, type, startDate, endDate){
       this.id = id;
       this.type = type;
       this.startDate = Date.parse(startDate);
@@ -10,7 +10,7 @@ var dataController = (function(){
       this.days = Date.parse(endDate) - Date.parse(startDate);
     };
 
-    var TimeOut = function(id, type, startDate, endDate){
+    const TimeOut = function(id, type, startDate, endDate){
       this.id = id;
       this.type = type;
       this.startDate = Date.parse(startDate);
@@ -18,7 +18,7 @@ var dataController = (function(){
       this.days = Date.parse(endDate) - Date.parse(startDate);
     };
 
-    var data = {
+    let data = {
       all: {
         in: [],
         out: [],
@@ -31,23 +31,23 @@ var dataController = (function(){
       total: 0
     };
 
-    var daysCalculator =  function(type){
-      var sum = 0;
-      data.all[type].forEach(function(el){
+    const daysCalculator = type => {
+      let sum = 0;
+      data.all[type].forEach(el => {
         sum += el.days;
-      })
+      });
       data.days[type] = sum / (60*60*24*1000);
     };
 
     return {
 
-      addItem: function(entry){
+      addItem: entry => {
           data.all[entry.type].push(entry);
           return entry;
       },
 
-      createItem: function(type, start, end){
-          var newItem, ID;
+      createItem: (type, start, end) => {
+          let newItem, ID;
 
           if(data.all[type].length > 0){
             ID = data.all[type][data.all[type].length - 1].id + 1;
@@ -67,10 +67,10 @@ var dataController = (function(){
 
       },
 
-      deleteItem: function(type, id){
-        var ids, index;
+      deleteItem: (type, id) => {
+        let ids, index;
 
-        ids = data.all[type].map(function(el,index){
+        ids = data.all[type].map((el,index) => {
           return el.id;
         });
 
@@ -81,7 +81,7 @@ var dataController = (function(){
         }
       },
 
-      calculateDays: function(){
+      calculateDays: () => {
         //sum days in and out
         daysCalculator('in');
         daysCalculator('out');
@@ -90,7 +90,7 @@ var dataController = (function(){
         data.total = (data.days['in'] === 0 ? threshold : threshold - (data.days['in'] - data.days['out']));
       },
 
-      getDays: function(){
+      getDays: () => {
         return {
           total: data.total,
           totalIn: data.days['in'],
@@ -98,16 +98,16 @@ var dataController = (function(){
         }
       },
 
-      testing: function(){
+      testing: () => {
         console.log(data);
       }
     };
 
 })();
 
-var uIController = (function(){
+const uIController = (() => {
 
-  var DOMelements = {
+  let DOMelements = {
     remain: '.remainDays',
     inDays: '.inDays',
     add: '.addBtn',
@@ -120,15 +120,15 @@ var uIController = (function(){
   }
 
   return {
-    getInput: function(){
+    getInput: () => {
       return {
         type: document.querySelector(DOMelements.type).value,
         startDate: document.querySelector(DOMelements.start).value,
         endDate: document.querySelector(DOMelements.end).value
       }
     },
-    addItemToDOM: function(obj, type){
-      var html, newHtml, element, fields, fieldsArr, dateIn, dateOut;
+    addItemToDOM: (obj, type) => {
+      let html, newHtml, element, fields, fieldsArr, dateIn, dateOut;
       //create HTML string with placeholder
       if(type === 'in'){
           element = DOMelements.inContainer;
@@ -142,50 +142,47 @@ var uIController = (function(){
       dateOut = new Date(obj.endDate);
 
       newHtml = html.replace('%id%', obj.id);
-      newHtml = newHtml.replace('%start%', new Intl.DateTimeFormat('en-GB').format(dateIn));
-      newHtml = newHtml.replace('%end%', new Intl.DateTimeFormat('en-GB').format(dateOut));
+      newHtml = newHtml.replace('%start%', new Intl.DateTimeFormat().format(dateIn));
+      newHtml = newHtml.replace('%end%', new Intl.DateTimeFormat().format(dateOut));
 
       document.querySelector(element).insertAdjacentHTML('afterbegin', newHtml);
 
-      //replace placeholder with data
-
-      //insert data in the dom
     },
 
-    deleteItemFromDOM: function(id){
-      var el = document.getElementById(id);
+    deleteItemFromDOM: id => {
+      let el = document.getElementById(id);
       el.parentNode.removeChild(el);
     },
 
-    clearFields: function(){
+    clearFields: () => {
       fields = document.querySelectorAll(DOMelements.start + ', ' + DOMelements.end);
       fieldsArr = Array.prototype.slice.call(fields);
-      fieldsArr.forEach(function(el){
+      fieldsArr.forEach(el => {
         el.value = '';
       });
 
     },
 
-    displayData: function(obj){
+    displayData: obj => {
       document.querySelector(DOMelements.remain).textContent = obj.total;
       document.querySelector(DOMelements.inDays).textContent = obj.totalIn;
     },
 
-    getDOMelements: function(){
+    getDOMelements: () => {
       return DOMelements;
     }
   };
 
 })();
 
-var appController = (function(dataCtrl,uICtrl){
+const appController = ((dataCtrl,uICtrl) => {
 
-  var initEventListeners = function(){
-    var DOM = uICtrl.getDOMelements();
+  const initEventListeners = () => {
+    let DOM = uICtrl.getDOMelements();
 
     document.querySelector(DOM.add).addEventListener('click', addEntry);
 
-    document.addEventListener('keypress',function(e){
+    document.addEventListener('keypress', e => {
       if(e.keyCode === 13 || e.which === 13){
         addEntry();
       }
@@ -195,29 +192,29 @@ var appController = (function(dataCtrl,uICtrl){
 
   };
 
-  var initData = async function(){
+  const initData = async () => {
     try{
       const response = await fetch('https://5cfdae53ca949b00148d3894.mockapi.io/api/v1/data/');
-      const data = response.json();
+      const data = await response.json();
       return data;
     }catch(e){
       console.log(e);
     }
   }
 
-  var updateCalcul = function(){
+  const updateCalcul = () => {
     //Calculate days
     dataCtrl.calculateDays();
 
     //Return the new calcul
-     var data = dataCtrl.getDays();
+     let data = dataCtrl.getDays();
 
     //Display new calcul
     uICtrl.displayData(data);
   };
 
-  var addEntry = function(){
-    var input, newEntry;
+  const addEntry = () => {
+    let input, newEntry;
     //Gather input data
     input = uICtrl.getInput();
 
@@ -235,8 +232,8 @@ var appController = (function(dataCtrl,uICtrl){
 
   };
 
-  var deleteItems = function(e){
-    var elementId, splitId, type, ID;
+  const deleteItems = e => {
+    let elementId, splitId, type, ID;
 
     elementId = e.target.parentNode.parentNode.parentNode.id;
 
@@ -258,12 +255,12 @@ var appController = (function(dataCtrl,uICtrl){
   }
 
   return {
-    init: function(){
+    init: () => {
       initEventListeners();
 
       //display data
       initData()
-      .then(function(data){
+      .then(data => {
         if(data !== ""){
 
           dataCtrl.addItem(data);
@@ -271,13 +268,10 @@ var appController = (function(dataCtrl,uICtrl){
 
           updateCalcul();
         }
-        //IF data is not empty
-
       })
-      .catch(function(e){
+      .catch(e => {
         console.log(e);
       });
-      //uIController.displayData();
     }
   };
 

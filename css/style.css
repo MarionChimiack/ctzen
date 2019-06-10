@@ -7,6 +7,10 @@ body{
   font-family: 'Raleway',sans-serif;
   font-weight: 400;
 }
+
+/**************************************/
+/********** HEADER ***********/
+
 .container{
   width: 650px;
   margin: 0 auto;
@@ -22,11 +26,9 @@ body{
   text-align: center;
   padding: 25px;
 }
-
 .headerContent h2{
   line-height: 2.85rem;
 }
-
 .content{
   background-color: #fff;
   width:100%;
@@ -36,21 +38,6 @@ body{
 .padding{
   padding:15px;
 }
-.row, .form{
-  display:flex;
-  flex-flow: row;
-  justify-content: space-around;
-}
-.mode{
-  text-align: center;
-  background-color: #fafafa;
-}
-.selected{
-  background-color:#dedede;
-  font-weight: bold;
-}
-
-
 
 /**************************************/
 /********** FORM ***********/
@@ -127,29 +114,20 @@ button:focus{
   width:40%;
 }
 .item{
-  border-bottom: 0.5px solid #778899;
+  border-bottom: 0.5px solid #f0f0f0;
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
 }
 .item__delete{
-  display:none;
+  text-align: center;
+  color:#fff;
+  width:0;
+  display:inline-block;
+  opacity:0;
+  transition: 0.2s linear;
 }
 .item:hover .item__delete{
-  animation-name: slidein;
-  animation-duration: 3s;
-}
-
-@keyframes slidein {
-  from {
-    display:block;
-    opacity: 0;
-    width: 0;
-  }
-
-  to {
-    display:block;
-    opacity: 1;
-    width: 100%;
-  }
+  width:40px;
+  opacity:1;
 }
