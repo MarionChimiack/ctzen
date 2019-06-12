@@ -10,9 +10,9 @@
   <body>
         <div class="header">
           <div class="headerContent">
-            <h1>How long until citizenship?</h1>
-            <h2>Number of days left: <span class="remainDays">-</span></h2>
-            <p>You have spent <span class="inDays">-</span> days in Canada</p>
+            <div class="headerContent_column_title"><h1>How long until citizenship?</h1></div>
+            <div class="headerContent_column headerContent_text borderRight"><span class="headerContent_numbers remainDays">-</span>of days left</div>
+            <div class="headerContent_column headerContent_text"><span class="headerContent_numbers inDays">-</span> days spent<br/>in Canada</div>
           </div>
         </div>
 
@@ -22,6 +22,11 @@
             <select class="addType">
               <option value="in" selected>In</option>
               <option value="out">Out</option>
+            </select>
+
+            <select class="addWP">
+              <option value="WP" selected>Work Permit</option>
+              <option value="RP">Permanent Residency</option>
             </select>
 
             <div class="dateInput">
@@ -60,6 +65,27 @@
         </div>
 
     </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#config-web-app -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBZsnUZGIaqz5AeEo4mx6m-HFPmOnJU03g",
+        authDomain: "ctzen-648ef.firebaseapp.com",
+        databaseURL: "https://ctzen-648ef.firebaseio.com",
+        projectId: "ctzen-648ef",
+        storageBucket: "ctzen-648ef.appspot.com",
+        messagingSenderId: "890646633843",
+        appId: "1:890646633843:web:b6cfd2c8e8e3f2c1"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
     <script type="text/javascript" src='js/app.js'></script>
   </body>
 </html>

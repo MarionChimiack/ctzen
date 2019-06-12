@@ -112,6 +112,7 @@ const uIController = (() => {
     inDays: '.inDays',
     add: '.addBtn',
     type: '.addType',
+    wp: '.addWP',
     start: '.startDate',
     end: '.endDate',
     inContainer: '.timein_list',
@@ -177,10 +178,12 @@ const uIController = (() => {
 
 const appController = ((dataCtrl,uICtrl) => {
 
+
   const initEventListeners = () => {
     let DOM = uICtrl.getDOMelements();
 
     document.querySelector(DOM.add).addEventListener('click', addEntry);
+    document.querySelector(DOM.type).addEventListener('change', toggleWP);
 
     document.addEventListener('keypress', e => {
       if(e.keyCode === 13 || e.which === 13){
@@ -199,6 +202,15 @@ const appController = ((dataCtrl,uICtrl) => {
       return data;
     }catch(e){
       console.log(e);
+    }
+  }
+
+  const toggleWP = () => {
+    let DOM = uICtrl.getDOMelements();
+    if(document.querySelector(DOM.type).value === 'out'){
+      document.querySelector(DOM.wp).classList.add('hide');
+    }else{
+      document.querySelector(DOM.wp).classList.remove('hide');
     }
   }
 

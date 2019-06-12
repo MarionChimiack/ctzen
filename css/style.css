@@ -7,36 +7,44 @@ body{
   font-family: 'Raleway',sans-serif;
   font-weight: 400;
 }
-
+.headerContent, .formContent{
+  width:800px;
+  margin: 0 auto;
+  display:flex;
+  flex-flow: row;
+  justify-content: space-around;
+}
+.headerContent{
+  padding-top:65px;
+  align-items:center;
+}
+.borderRight{
+  border-right: 1px solid #fff;
+}
 /**************************************/
 /********** HEADER ***********/
 
-.container{
-  width: 650px;
-  margin: 0 auto;
-}
 .header{
-  background-color: navy;
+  background: #3f5ae9;
+  background: -moz-linear-gradient(-45deg, #3f5ae9 0%, #02e0f3 100%);
+  background: -webkit-linear-gradient(-45deg, #3f5ae9 0%, #02e0f3 100%);
+  background: linear-gradient(135deg, #3f5ae9 0%, #02e0f3 100%);
   color:#fff;
-  height:30vh;
+  min-height:225px;
 }
-.headerContent, .formContent{
-  width:700px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 25px;
+.headerContent_column_title{
+  flex-basis:50%;
 }
-.headerContent h2{
-  line-height: 2.85rem;
+.headerContent_column{
+  flex-basis:25%;
 }
-.content{
-  background-color: #fff;
-  width:100%;
-  margin-bottom:15px;
-  box-sizing:border-box;
+.headerContent_text{
+  text-align: center
 }
-.padding{
-  padding:15px;
+.headerContent_numbers{
+  display:block;
+  font-weight: 400;
+  font-size: 3rem;
 }
 
 /**************************************/
@@ -46,9 +54,8 @@ body{
   background: #f0f0f0;
 }
 .formContent{
-  display:flex;
-  flex-flow: row;
-  justify-content: space-around;
+  text-align: center;
+  padding: 15px;
 }
 select.addType{
   display: block;
@@ -57,13 +64,35 @@ select.addType{
   color: #444;
   line-height: 1.5;
   padding: 1em 1.4em 1em 1em;
-  width:10%;
+  width:8%;
   box-sizing: border-box;
   margin: 0;
   border: 1px solid #aaa;
   box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
   border-radius: .5em;
   background-color: #fff;
+}
+select.addWP{
+  display: block;
+  opacity:1;
+  transition: 0.2s linear;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #444;
+  line-height: 1.5;
+  padding: 1em 1.4em 1em 1em;
+  width:20%;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: .5em;
+  background-color: #fff;
+}
+
+select.addWP.hide{
+  opacity:0;
+  width:0
 }
 
 .dateInput p{
@@ -78,7 +107,7 @@ input[type='date']{
   font-size: 14px;
   border: 1px solid #aaa;
   border-radius: .5em;
-  width: 55%;
+  width: 52%;
 }
 
 button{
