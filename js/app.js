@@ -22,7 +22,6 @@ const dataController = (() => {
       all: {
         in: [],
         out: [],
-
       },
       days: {
         in: 0,
@@ -34,7 +33,7 @@ const dataController = (() => {
     const daysCalculator = type => {
       let sum = 0;
       data.all[type].forEach(el => {
-        sum += el.days;
+          sum += el.days;
       });
       data.days[type] = sum / (60*60*24*1000);
     };
@@ -124,6 +123,7 @@ const uIController = (() => {
     getInput: () => {
       return {
         type: document.querySelector(DOMelements.type).value,
+        //wp: document.querySelector(DOMelements.wp).value,
         startDate: document.querySelector(DOMelements.start).value,
         endDate: document.querySelector(DOMelements.end).value
       }
@@ -215,30 +215,25 @@ const appController = ((dataCtrl,uICtrl) => {
   }
 
   const updateCalcul = () => {
-    //Calculate days
     dataCtrl.calculateDays();
 
-    //Return the new calcul
-     let data = dataCtrl.getDays();
+    let data = dataCtrl.getDays();
 
-    //Display new calcul
     uICtrl.displayData(data);
   };
 
   const addEntry = () => {
     let input, newEntry;
-    //Gather input data
+
     input = uICtrl.getInput();
 
     if(input.startDate !== '' && input.endDate !== ''){
-      //Add the data to the data Controller
+
       newEntry = dataCtrl.createItem(input.type,input.startDate,input.endDate);
 
-      //Add to the UI and clear fileds
       uICtrl.addItemToDOM(newEntry, input.type);
       uICtrl.clearFields();
 
-      //Call updatecalcul methold
       updateCalcul();
     }
 
